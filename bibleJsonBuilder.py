@@ -111,6 +111,7 @@ def getTopics():
     db.close()
     for row in rows:
       id = row[0]
+      print(id)
       bookTitle = row[1]
       chapter = str(row[2])
       chapterindex = row[2]-1
@@ -132,7 +133,7 @@ def getTopics():
          if _word.lower() in uniqueWords:
           if not id in booksdata[_word.lower()]:
             booksdata[_word.lower()].append(id)
-            print(booksdata)
+            #print(booksdata)
 
          if not _word.lower() in uniqueWords:
           uniqueWords.append(_word.lower())
