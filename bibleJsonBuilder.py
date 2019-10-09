@@ -1,5 +1,6 @@
 import sqlite3
 import json
+import re
 
 def getVerses():
     booklist = []
@@ -129,17 +130,17 @@ def getTopics():
          _word = _word.replace("?", "")
          _word = _word.replace("(", "")
          _word = _word.replace(")", "")
-
-         if _word.lower() in uniqueWords:
-          if not id in booksdata[_word.lower()]:
+         if not bool(re.search(r'\d', _word)):
+          if _word.lower() in uniqueWords:
+           if not id in booksdata[_word.lower()]:
             booksdata[_word.lower()].append(id)
             #print(booksdata)
 
-         if not _word.lower() in uniqueWords:
-          uniqueWords.append(_word.lower())
-          booksdata[_word.lower()] = []
-          booksdata[_word.lower()].append(id)
-          #print(_word.lower())
+          if not _word.lower() in uniqueWords:
+           uniqueWords.append(_word.lower())
+           booksdata[_word.lower()] = []
+           booksdata[_word.lower()].append(id)
+           #print(_word.lower())
     jsonFile = open("topics.json", "w+")
     jsonFile.write(json.dumps(booksdata))
     jsonFile.close()
